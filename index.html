@@ -306,6 +306,53 @@ nav.main-links a::before{ content:"/"; color:var(--muted-dim); margin-right:6px;
 .tpl-media.g4{ background:linear-gradient(135deg, #331a1a, #cf4d3b); }
 .tpl-media.g5{ background:linear-gradient(135deg, #1a2530, #2e4a5c); }
 .tpl-media.g6{ background:linear-gradient(135deg, #2a2408, #8a7a1a); }
+.tpl-media.has-img{ background:linear-gradient(180deg, var(--panel-3), var(--panel)); }
+.tpl-media.has-img .brace{ display:none; }
+.tpl-media.has-img .shirt-thumb{
+  width:100%; height:100%; object-fit:cover; object-position:center 45%;
+  transition:transform .5s cubic-bezier(.2,.8,.2,1);
+}
+/* Strong responsive focal adjustments: push image a bit lower so the shirt stays visible; small viewports force shirt focus */
+@media (max-width: 640px){
+  .tpl-media.has-img .shirt-thumb{
+    /* strongly push focal point down on narrow viewports */
+    object-position: center 75% !important;
+  }
+}
+@media (min-width: 900px){
+  .tpl-media.has-img .shirt-thumb{
+    /* show more of the face on wide viewports */
+    object-position: center 18% !important;
+  }
+}
+/* Card-specific tweak: inside compact cards keep the shirt visible */
+.tpl-card .tpl-media.has-img .shirt-thumb{
+  object-position: center 70% !important;
+}
+
+/* Modal-specific tweaks: ensure modal image also shifts slightly down and style the scrollbar */
+.modal-panel.shirt-modal .shirt-modal-img{
+  width:100%; height:100%; object-fit:cover; object-position:center 36% !important;
+}
+
+/* Make the modal itself scroll nicely and give the scrollbar a site-friendly look */
+.modal-panel.shirt-modal{
+  max-height:92vh; overflow-y:auto; scrollbar-width:thin; scrollbar-color: var(--signal) rgba(255,255,255,0.04);
+}
+.modal-panel.shirt-modal::-webkit-scrollbar{ width:10px; }
+.modal-panel.shirt-modal::-webkit-scrollbar-track{ background: transparent; border-radius:8px; }
+.modal-panel.shirt-modal::-webkit-scrollbar-thumb{
+  background: linear-gradient(180deg, rgba(50,220,120,0.95), rgba(34,170,90,0.95));
+  border-radius:8px; border:2px solid rgba(0,0,0,0.15);
+}
+.modal-panel.shirt-modal::-webkit-scrollbar-thumb:hover{ filter:brightness(0.95); }
+
+/* For Firefox fallback */
+.modal-panel.shirt-modal{
+  --_scroll-thumb: rgba(34,170,90,0.95);
+}
+
+.tpl-card:hover .tpl-media.has-img .shirt-thumb{ transform:scale(1.05); }
 .tpl-discount-badge{
   position:absolute; top:12px; left:12px;
   font-family:var(--f-mono); font-size:10.5px; font-weight:600; background:var(--signal); color:var(--void);
@@ -435,6 +482,50 @@ nav.main-links a::before{ content:"/"; color:var(--muted-dim); margin-right:6px;
 .soon-panel .soon-icon{ font-family:var(--f-mono); font-size:26px; color:var(--signal); }
 .soon-panel strong{ font-family:var(--f-mono); font-size:14px; letter-spacing:.06em; text-transform:uppercase; color:var(--ink); }
 .soon-panel span{ font-family:var(--f-mono); font-size:13px; color:var(--muted-dim); }
+
+.modal-panel.shirt-modal{
+  width:min(920px,100%); max-height:88vh; padding:0; overflow:hidden;
+  display:grid; grid-template-columns:minmax(240px, 42%) 1fr;
+}
+.shirt-modal-img-wrap{
+  background:linear-gradient(180deg, var(--panel), var(--panel-3));
+  border-right:1px solid var(--line);
+  min-height:460px; overflow:hidden; position:relative;
+}
+.shirt-modal-img{
+  width:100%; height:100%; min-height:460px;
+  object-fit:cover; object-position:center 12%;
+}
+.shirt-modal-body{
+  padding:38px 34px 32px; overflow-y:auto; max-height:88vh;
+  display:flex; flex-direction:column;
+}
+.shirt-modal-body .close-x{ top:14px; right:14px; }
+.shirt-modal-body h3{ font-size:clamp(24px,3vw,31px); margin-top:8px; line-height:1.25; }
+.shirt-detail-text{
+  margin-top:18px; color:var(--muted); font-size:15.5px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.shirt-detail-text p{ color:var(--muted); }
+.shirt-specs{
+  margin-top:22px; display:grid; grid-template-columns:repeat(2,1fr); gap:10px;
+}
+.shirt-spec{
+  border:1px solid var(--line); border-radius:10px; padding:12px 14px;
+  background:rgba(255,255,255,0.02);
+}
+.shirt-spec strong{
+  display:block; font-family:var(--f-mono); font-size:10px;
+  letter-spacing:.08em; text-transform:uppercase; color:var(--signal); margin-bottom:4px;
+}
+.shirt-spec span{ font-size:13.5px; color:var(--ink); }
+@media (max-width:760px){
+  .modal-panel.shirt-modal{ grid-template-columns:1fr; max-height:92vh; overflow-y:auto; }
+  .shirt-modal-img-wrap{ min-height:320px; border-right:none; border-bottom:1px solid var(--line); }
+  .shirt-modal-img{ min-height:320px; }
+  .shirt-modal-body{ max-height:none; padding:30px 22px 28px; }
+  .shirt-specs{ grid-template-columns:1fr; }
+}
 
 /* ===================== FOOTER ===================== */
 footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0 26px; position:relative; z-index:1; }
@@ -619,15 +710,15 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
     <div class="tpl-grid" id="tplGrid"></div>
   </div>
 </section>
-<section id="sablonlar" class="section">
+<section id="shirts" class="section">
   <div class="container">
     <div class="section-head reveal">
       <div class="eyebrow" style="justify-content:center;"><span class="br">{</span> tişörtler <span class="br">}</span></div>
       <h2>Kod Yazmadan Önce Bir Coder Gibi Giyinin</h2>
-      <p class="lead">Bir tişörtü beğendiğinizde "stratcodelabs@gmail.com" gmailine mail atarak tarzınızı geliştirin.</p>
+      <p class="lead">Bir tişörte tıklayın, tüm özelliklerini görün. Beğendiğinizde "Satın Al" butonu sizin için hazır bir e-posta oluşturur. Tüm tişörtler şu anda indirimde.</p>
     </div>
 
-    <div class="tpl-grid" id="tplGrid1"></div>
+    <div class="tpl-grid" id="shirtGrid"></div>
   </div>
 </section>
 <!-- ============ MAKALELER ============ -->
@@ -662,7 +753,7 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
     <h2>MUN Konferansları için Press &amp; IT'lik</h2>
     <p>Konferansınız için Press ve IT ekibi desteği mi arıyorsunuz? Detayları ve kapsamı konuşmak üzere doğrudan bize yazın.</p>
     <div class="contact-cta">
-      <a class="btn btn-solid" href="https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su=MUN%20Press%2FIT%20Hizmetleri%20Talebi&body=Merhaba%2C%0A%0AKonferansımız için Press%2FIT hizmetleri hakkında bilgi almak istiyorum.%0A%0AKonferans Adı%3A%0ATarih%3A%0AKonum%3A%0A" target="_blank" rel="noopener">Mail Gönder</a>
+      <a class="btn btn-solid" href="https://mail.google.com/mail/?view=cm&fs=1&to=stratcodelabs@gmail.com&su=MUN%20Press%2FIT%20Hizmetleri%20Talebi&body=Merhaba%2C%0A%0AKonferansımız için Press%2FIT hizmetleri hakkında bilgi almak istiyorum.%0A%0AKonferans Adı%3A%0ATarih%3A%0AKonum%3A%0A" target="_blank" rel="noopener">Mail Gönder</a>
     </div>
     <div class="copy-fallback" style="justify-content:center;">
       <span>Mail istemciniz açılmadıysa:</span>
@@ -700,10 +791,10 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
     <h2>Bir Proje mi Konuşacağız?</h2>
     <p>Özel bir şablon, bir makale önerisi ya da birlikte çalışmak istediğiniz bir proje için bize yazın.</p>
     <div class="contact-cta">
-      <a class="btn btn-solid" href="https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su=Merhaba%20StratCode%20Labs" target="_blank" rel="noopener">Mail Gönder</a>
-      <a class="btn btn-ghost" href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram'da Takip Et</a>
+      <a class="btn btn-solid" href="https://mail.google.com/mail/?view=cm&fs=1&to=stratcodelabs@gmail.com&su=Merhaba%20StratCode%20Labs" target="_blank" rel="noopener">Mail Gönder</a>
+      <a class="btn btn-ghost" href="https://www.instagram.com/stratcodelabs?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" rel="noopener">Instagram'da Takip Et</a>
     </div>
-    <div class="contact-direct">veya doğrudan yazın: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com" target="_blank" rel="noopener">kilincatayanki@gmail.com</a></div>
+    <div class="contact-direct">veya doğrudan yazın: <a href="https://mail.google.com/mail/?view=cm&fs=1&to=stratcodelabs@gmail.com" target="_blank" rel="noopener">stratcodelabs@gmail.com</a></div>
     <div class="copy-fallback" style="justify-content:center;">
       <span>Mail istemciniz açılmadıysa:</span>
       <button type="button" id="contactCopyBtn">
@@ -737,7 +828,7 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
     <div>
       <h4>Bağlan</h4>
       <ul>
-        <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com" target="_blank" rel="noopener">E-posta</a></li>
+        <li><a href="https://mail.google.com/mail/?view=cm&fs=1&to=stratcodelabs@gmail.com" target="_blank" rel="noopener">E-posta</a></li>
         <li><a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
         <li><a href="#hero">Yukarı Dön</a></li>
       </ul>
@@ -815,18 +906,35 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
   </div>
 </div>
 
-<!-- ============ ARTICLE MODAL ============ -->
-<div class="overlay" id="artOverlay">
-  <div class="modal-panel">
-    <button class="close-x js-close" aria-label="Kapat">✕</button>
-    <div class="modal-meta" id="artModalMeta1"></div>
-    <h3 id="artModalTitle1" style="margin-top:14px;"></h3>
-    <div class="modal-body-text" id="artModalBody1"></div>
-    <div class="modal-actions">
-      <button class="btn btn-ghost js-close">Kapat</button>
+<!-- ============ SHIRT MODAL ============ -->
+<div class="overlay" id="shirtOverlay">
+  <div class="modal-panel shirt-modal">
+    <div class="shirt-modal-img-wrap">
+      <img class="shirt-modal-img" id="shirtModalImg" src="" alt="">
+    </div>
+    <div class="shirt-modal-body">
+      <button class="close-x js-close" aria-label="Kapat">✕</button>
+      <div class="modal-tag" id="shirtModalTag"></div>
+      <h3 id="shirtModalTitle"></h3>
+      <div class="modal-price" id="shirtModalPrice"></div>
+      <div class="shirt-detail-text" id="shirtModalDesc"></div>
+      <div class="shirt-specs" id="shirtModalSpecs"></div>
+      <ul class="feature-list" id="shirtModalFeatures"></ul>
+      <div class="modal-actions">
+        <a class="btn btn-solid" id="shirtBuyBtn" href="#" target="_blank" rel="noopener">Satın Al</a>
+        <button class="btn btn-ghost js-close">Kapat</button>
+      </div>
+      <div class="copy-fallback">
+        <span>Mail istemciniz açılmadıysa:</span>
+        <button type="button" id="shirtCopyBtn">
+          <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6"/></svg>
+          E-postayı Kopyala
+        </button>
+      </div>
     </div>
   </div>
 </div>
+
 <script>
 /* =========================================================
    DATA — şablon, makale ve proje bilgileri buradan yönetilir.
@@ -864,17 +972,40 @@ const TEMPLATES = [
     features:['Hizmetler ve referans bölümleri','Ekip ve süreç sayfası şablonları','İletişim formu arayüzü (mailto uyumlu)','SEO ve performans optimizasyonlu','Figma tasarım dosyası dahil','6 ay ücretsiz güncelleme']
   }
 ];
-const  SHIRTS = [
+const SHIRTS = [
   {
-    id:'coding', tag:'stratcode', title:'StratCoding Shirt', oldPrice:'₺225', price:'₺120', media:'g1',
-    desc:'Coding Shirt.',
-    features:['%100 Pamuk','Unisex','Beyaz','Tüm bedenler stokta','Ücretsiz kargo']
+    id:'stratcoding', tag:'stratcode', title:'StratCoding Shirt', oldPrice:'₺225', price:'₺120', media:'g1',
+    image:'stratlogotshit.png', color:'Mavi', fit:'Unisex',
+    desc:'StratCode Labs logosuyla tasarlanmış, coder ruhunu taşıyan premium tişört. Günlük kullanım ve etkinlikler için ideal.',
+    details:[
+      'Ön baskıda {S} ikonu ve STRATCODE LABS tipografisi yer alır.',
+      'Canlı mavi kumaş, kontrast beyaz baskı ile marka kimliğini öne çıkarır.',
+      'Yumuşak dokulu pamuklu kumaş sayesinde uzun süre rahat kalır.'
+    ],
+    features:['%100 Pamuk','Unisex kesim','Canlı mavi renk','Tüm bedenler stokta','Ücretsiz kargo']
   },
   {
-    id:'atatürk', tag:'atatürk', title:'Atatürk Shirt', oldPrice:'₺250', price:'₺150', media:'g2',
-    desc:'Atatürk Shirt.',
-    features:['%100 Pamuk','Unisex','Mavi','Tüm bedenler stokta','Ücretsiz kargo']
+    id:'ataturk', tag:'atatürk', title:'Atatürk Shirt', oldPrice:'₺250', price:'₺150', media:'g2',
+    image:'atamtshirt.jpeg', color:'Beyaz', fit:'Unisex',
+    desc:'Mustafa Kemal Atatürk silueti ve "Milletimizin siyasi ve sosyal hayatında rehberimiz ilim ve fen olacaktır" sözüyle tasarlanmış özel baskılı tişört.',
+    details:[
+      'Siyah siluet ve kırmızı tipografi ile güçlü bir görsel dil sunar.',
+      'Beyaz zemin üzerinde okunaklı, kalıcı baskı teknolojisi kullanılır.',
+      'Günlük kombinlerde sade ama anlamlı bir duruş sağlar.'
+    ],
+    features:['%100 Pamuk','Unisex kesim','Beyaz zemin','Tüm bedenler stokta','Ücretsiz kargo']
   },
+  {
+    id:'coding', tag:'coding', title:'Coding Shirt', oldPrice:'₺250', price:'₺120', media:'g3',
+    image:'codetshit.jpeg', color:'Beyaz', fit:'Unisex',
+    desc:'if (brain!=empty) { KeepCoding(); } else { orderCoffee(); } — geliştiriciler için eğlenceli ve minimal bir kod baskısı.',
+    details:[
+      'Monospace font ile yazılmış gerçek bir kod bloğu tasarımı.',
+      'Yeşil vurgulu satırlar, sitenin signal paletiyle uyumlu bir coder havası verir.',
+      'Hackathon, meetup ve günlük ofis kullanımı için mükemmel.'
+    ],
+    features:['%100 Pamuk','Unisex kesim','Beyaz zemin','Tüm bedenler stokta','Ücretsiz kargo']
+  }
 ];
 const ARTICLES = [
   {
@@ -932,12 +1063,13 @@ TEMPLATES.forEach(function(t){
   card.addEventListener('click', function(){ openTemplate(t.id); });
   tplGrid.appendChild(card);
 });
-const tplGrid1 = document.getElementById('tplGrid1');
+const shirtGrid = document.getElementById('shirtGrid');
 SHIRTS.forEach(function(t){
   const card = document.createElement('div');
   card.className = 'tpl-card reveal';
   card.innerHTML =
-    '<div class="tpl-media '+t.media+'"><span class="brace">{ }</span>'+
+    '<div class="tpl-media has-img '+t.media+'">'+
+      '<img class="shirt-thumb" src="'+t.image+'" alt="'+t.title+' önizleme" loading="lazy">'+
       '<span class="tpl-discount-badge">İndirimde</span>'+
       '<span class="tpl-pricetag"><span class="old">'+t.oldPrice+'</span><span class="new">'+t.price+'</span></span>'+
     '</div>'+
@@ -948,7 +1080,7 @@ SHIRTS.forEach(function(t){
       '<span class="tpl-more">Özellikleri Gör →</span>'+
     '</div>';
   card.addEventListener('click', function(){ openShirt(t.id); });
-  tplGrid1.appendChild(card);
+  shirtGrid.appendChild(card);
 });
 
 /* =========================================================
@@ -990,6 +1122,8 @@ PROJECTS.forEach(function(p, i){
 ========================================================== */
 const tplOverlay = document.getElementById('tplOverlay');
 const artOverlay = document.getElementById('artOverlay');
+const shirtOverlay = document.getElementById('shirtOverlay');
+
 function openTemplate(id){
   const t = TEMPLATES.find(function(x){ return x.id === id; });
   if(!t) return;
@@ -1016,16 +1150,62 @@ function openTemplate(id){
   const body = encodeURIComponent(rawBody);
 
   document.getElementById('tplBuyBtn').href =
-    'https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su='+subject+'&body='+body;
+    'https://mail.google.com/mail/?view=cm&fs=1&to=stratcodelabs@gmail.com&su='+subject+'&body='+body;
 
-  document.getElementById('tplCopyBtn').onclick = function(){
+  tplOverlay.classList.add('open');
+  document.body.classList.add('lock');
+}
+
+function openShirt(id){
+  const t = SHIRTS.find(function(x){ return x.id === id; });
+  if(!t) return;
+
+  const img = document.getElementById('shirtModalImg');
+  img.src = t.image;
+  img.alt = t.title;
+
+  document.getElementById('shirtModalTag').textContent = t.tag;
+  document.getElementById('shirtModalTitle').textContent = t.title;
+  document.getElementById('shirtModalPrice').innerHTML = '<span class="old">'+t.oldPrice+'</span><span>'+t.price+'</span>';
+
+  const desc = document.getElementById('shirtModalDesc');
+  desc.innerHTML = '';
+  const lead = document.createElement('p');
+  lead.textContent = t.desc;
+  desc.appendChild(lead);
+  t.details.forEach(function(line){
+    const p = document.createElement('p');
+    p.textContent = line;
+    desc.appendChild(p);
+  });
+
+  document.getElementById('shirtModalSpecs').innerHTML =
+    '<div class="shirt-spec"><strong>Renk</strong><span>'+t.color+'</span></div>'+
+    '<div class="shirt-spec"><strong>Kesim</strong><span>'+t.fit+'</span></div>'+
+    '<div class="shirt-spec"><strong>Kumaş</strong><span>%100 Pamuk</span></div>'+
+    '<div class="shirt-spec"><strong>Teslimat</strong><span>2–4 iş günü</span></div>';
+
+  const list = document.getElementById('shirtModalFeatures');
+  list.innerHTML = '';
+  t.features.forEach(function(f){
+    const li = document.createElement('li');
+    li.innerHTML = '<span class="chk">✓</span><span>'+f+'</span>';
+    list.appendChild(li);
+  });
+
+  const rawBody = 'Merhaba,\n\n"'+t.title+'" tişörtünü ('+t.price+', indirimli fiyat) satın almak istiyorum.\n\nBeden:\nAdım Soyadım:\nE-posta:\nEklemek istediğim not:\n';
+  const subject = encodeURIComponent('Tişört Satın Alma - ' + t.title);
+  const body = encodeURIComponent(rawBody);
+  document.getElementById('shirtBuyBtn').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=stratcodelabs@gmail.com&su='+subject+'&body='+body;
+
+  document.getElementById('shirtCopyBtn').onclick = function(){
     copyToClipboard(
-      'Kime: kilincatayanki@gmail.com\nKonu: Şablon Satın Alma - '+t.title+'\n\n'+rawBody,
-      'kilincatayanki@gmail.com adresine gönderilecek mesaj panoya kopyalandı.'
+      'Kime: stratcodelabs@gmail.com\nKonu: Tişört Satın Alma - '+t.title+'\n\n'+rawBody,
+      'stratcodelabs@gmail.com adresine gönderilecek mesaj panoya kopyalandı.'
     );
   };
 
-  tplOverlay.classList.add('open');
+  shirtOverlay.classList.add('open');
   document.body.classList.add('lock');
 }
 /* =========================================================
@@ -1063,7 +1243,7 @@ function showToast(title, msg){
 }
 
 document.getElementById('contactCopyBtn').addEventListener('click', function(){
-  copyToClipboard('kilincatayanki@gmail.com', 'E-posta adresi panoya kopyalandı: kilincatayanki@gmail.com');
+  copyToClipboard('stratcodelabs@gmail.com', 'E-posta adresi panoya kopyalandı: stratcodelabs@gmail.com');
 });
 
 function openArticle(id){
@@ -1095,12 +1275,13 @@ function openArticle(id){
 function closeOverlays(){
   tplOverlay.classList.remove('open');
   artOverlay.classList.remove('open');
+  shirtOverlay.classList.remove('open');
   if(!document.body.classList.contains('preloading')) document.body.classList.remove('lock');
 }
 document.querySelectorAll('.js-close').forEach(function(btn){
   btn.addEventListener('click', closeOverlays);
 });
-[tplOverlay, artOverlay].forEach(function(ov){
+[tplOverlay, artOverlay, shirtOverlay].forEach(function(ov){
   ov.addEventListener('click', function(e){ if(e.target === ov) closeOverlays(); });
 });
 document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeOverlays(); });
