@@ -969,26 +969,32 @@ const artOverlay = document.getElementById('artOverlay');
 function openTemplate(id){
   const t = TEMPLATES.find(function(x){ return x.id === id; });
   if(!t) return;
+
   document.getElementById('tplModalTag').textContent = t.tag;
   document.getElementById('tplModalTitle').textContent = t.title;
-  document.getElementById('tplModalPrice').innerHTML = '<span class="old">'+t.oldPrice+'</span><span>'+t.price+'</span>';
+  document.getElementById('tplModalPrice').innerHTML =
+    '<span class="old">'+t.oldPrice+'</span><span>'+t.price+'</span>';
   document.getElementById('tplModalDesc').textContent = t.desc;
 
   const list = document.getElementById('tplModalFeatures');
   list.innerHTML = '';
+
   t.features.forEach(function(f){
     const li = document.createElement('li');
     li.innerHTML = '<span class="chk">✓</span><span>'+f+'</span>';
     list.appendChild(li);
   });
 
-  const rawBody = 'Merhaba,\n\n"'+t.title+'" şablonunu ('+t.price+', indirimli fiyat) satın almak istiyorum.\n\nAdım Soyadım:\nE-posta:\nEklemek istediğim not:\n';
+  const rawBody =
+    'Merhaba,\n\n"'+t.title+'" şablonunu ('+t.price+', indirimli fiyat) satın almak istiyorum.\n\nAdım Soyadım:\nE-posta:\nEklemek istediğim not:\n';
+
   const subject = encodeURIComponent('Şablon Satın Alma - ' + t.title);
   const body = encodeURIComponent(rawBody);
-  document.getElementById('tplBuyBtn').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su='+subject+'&body='+body;
 
-  const copyBtn = document.getElementById('tplCopyBtn');
-  copyBtn.onclick = function(){
+  document.getElementById('tplBuyBtn').href =
+    'https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su='+subject+'&body='+body;
+
+  document.getElementById('tplCopyBtn').onclick = function(){
     copyToClipboard(
       'Kime: kilincatayanki@gmail.com\nKonu: Şablon Satın Alma - '+t.title+'\n\n'+rawBody,
       'kilincatayanki@gmail.com adresine gönderilecek mesaj panoya kopyalandı.'
@@ -999,31 +1005,38 @@ function openTemplate(id){
   document.body.classList.add('lock');
 }
 
-function openTemplate(id){
+
+function openShirt(id){
   const t = SHIRTS.find(function(x){ return x.id === id; });
   if(!t) return;
-  document.getElementById('tplModalTag').textContent = t.tag;
-  document.getElementById('tplModalTitle').textContent = t.title;
-  document.getElementById('tplModalPrice').innerHTML = '<span class="old">'+t.oldPrice+'</span><span>'+t.price+'</span>';
-  document.getElementById('tplModalDesc').textContent = t.desc;
 
-  const list = document.getElementById('tplModalFeatures');
+  document.getElementById('tplModalTag1').textContent = t.tag;
+  document.getElementById('tplModalTitle1').textContent = t.title;
+  document.getElementById('tplModalPrice1').innerHTML =
+    '<span class="old">'+t.oldPrice+'</span><span>'+t.price+'</span>';
+  document.getElementById('tplModalDesc1').textContent = t.desc;
+
+  const list = document.getElementById('tplModalFeatures1');
   list.innerHTML = '';
+
   t.features.forEach(function(f){
     const li = document.createElement('li');
     li.innerHTML = '<span class="chk">✓</span><span>'+f+'</span>';
     list.appendChild(li);
   });
 
-  const rawBody = 'Merhaba,\n\n"'+t.title+'" şablonunu ('+t.price+', indirimli fiyat) satın almak istiyorum.\n\nAdım Soyadım:\nE-posta:\nEklemek istediğim not:\n';
-  const subject = encodeURIComponent('Şablon Satın Alma - ' + t.title);
-  const body = encodeURIComponent(rawBody);
-  document.getElementById('tplBuyBtn').href = 'https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su='+subject+'&body='+body;
+  const rawBody =
+    'Merhaba,\n\n"'+t.title+'" ürününü ('+t.price+', indirimli fiyat) satın almak istiyorum.\n\nAdım Soyadım:\nE-posta:\nEklemek istediğim not:\n';
 
-  const copyBtn = document.getElementById('tplCopyBtn');
-  copyBtn.onclick = function(){
+  const subject = encodeURIComponent('Ürün Satın Alma - ' + t.title);
+  const body = encodeURIComponent(rawBody);
+
+  document.getElementById('tplBuyBtn1').href =
+    'https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su='+subject+'&body='+body;
+
+  document.getElementById('tplCopyBtn1').onclick = function(){
     copyToClipboard(
-      'Kime: kilincatayanki@gmail.com\nKonu: Şablon Satın Alma - '+t.title+'\n\n'+rawBody,
+      'Kime: kilincatayanki@gmail.com\nKonu: Ürün Satın Alma - '+t.title+'\n\n'+rawBody,
       'kilincatayanki@gmail.com adresine gönderilecek mesaj panoya kopyalandı.'
     );
   };
