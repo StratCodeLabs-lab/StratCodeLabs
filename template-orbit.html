@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Orbit — SaaS Açılış Sayfası</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary: #3B82F6;
+      --secondary: #1E40AF;
+      --accent: #0EA5E9;
+      --text: #1F2937;
+      --text-light: #6B7280;
+      --bg: #FFFFFF;
+      --bg-alt: #F9FAFB;
+      --border: #E5E7EB;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #F0F9FF 0%, #E0F2FE 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      animation: slideDown 0.6s ease-out;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--primary);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05);
+      color: var(--secondary);
+    }
+    
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+      font-weight: 500;
+    }
+    
+    nav a:hover {
+      color: var(--primary);
+    }
+    
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+    
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .hero p {
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(59, 130, 246, 0.4);
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1200px;
+      margin: 100px auto;
+      padding: 0 40px;
+    }
+    
+    .feature-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+      animation: fadeIn 0.6s ease-out;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(59, 130, 246, 0.15);
+    }
+    
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+    
+    .feature-card h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+      font-weight: 600;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .feature-card p {
+      color: var(--text-light);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    
+    .pricing-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      padding: 80px 40px;
+      margin-top: 100px;
+      text-align: center;
+    }
+    
+    .pricing-section h2 {
+      color: white;
+      font-size: 42px;
+      margin-bottom: 60px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .pricing-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    
+    .pricing-card {
+      background: white;
+      padding: 40px 30px;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .pricing-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .pricing-card h3 {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .price {
+      font-size: 36px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 20px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .price-desc {
+      color: var(--text-light);
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    
+    .features-list {
+      text-align: left;
+      margin-bottom: 30px;
+    }
+    
+    .features-list li {
+      list-style: none;
+      padding: 8px 0;
+      color: var(--text);
+      font-size: 14px;
+    }
+    
+    .features-list li:before {
+      content: "✓ ";
+      color: var(--accent);
+      font-weight: 600;
+      margin-right: 8px;
+    }
+    
+    footer {
+      background: var(--bg-alt);
+      padding: 40px;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../index.html#sablonlar" class="logo">
+      <div class="logo-icon">SC</div>
+      <span>Orbit</span>
+    </a>
+    <nav>
+      <a href="#features">Özellikler</a>
+      <a href="#pricing">Fiyatlar</a>
+      <a href="#contact">İletişim</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>SaaS Uygulamalarını Hızla Başlat</h1>
+    <p>Orbit ile modern, skalabilir ve güvenli SaaS uygulamalarını dakikalar içinde oluşturun. Müşteriler için hazır.</p>
+    <button class="cta-button">Hemen Başla</button>
+  </section>
+
+  <section class="features" id="features">
+    <div class="feature-card" style="animation-delay: 0.1s">
+      <div class="feature-icon">🚀</div>
+      <h3>Hızlı Dağıtım</h3>
+      <p>Saatler içinde produksiyona yayınlayın. Ölçeklenebilir altyapı hazır.</p>
+    </div>
+    <div class="feature-card" style="animation-delay: 0.2s">
+      <div class="feature-icon">🔒</div>
+      <h3>Güvenlik</h3>
+      <p>Enterprise-grade güvenlik özellikleri ile verileriniz korunur.</p>
+    </div>
+    <div class="feature-card" style="animation-delay: 0.3s">
+      <div class="feature-icon">📊</div>
+      <h3>Analitikler</h3>
+      <p>Gerçek zamanlı analitiikler ve raporlama araçları dahil.</p>
+    </div>
+    <div class="feature-card" style="animation-delay: 0.4s">
+      <div class="feature-icon">🔗</div>
+      <h3>Entegrasyonlar</h3>
+      <p>Tüm popüler hizmetlerle sorunsuz entegrasyon.</p>
+    </div>
+  </section>
+
+  <section class="pricing-section" id="pricing">
+    <h2>Uygun Fiyatlandırma</h2>
+    <div class="pricing-cards">
+      <div class="pricing-card">
+        <h3>Başlangıç</h3>
+        <div class="price">$29</div>
+        <div class="price-desc">Aylık</div>
+        <ul class="features-list">
+          <li>Sınırsız Proje</li>
+          <li>5 GB Depolama</li>
+          <li>Temel Destek</li>
+          <li>API Erişimi</li>
+        </ul>
+        <button class="cta-button">Başla</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Profesyonel</h3>
+        <div class="price">$79</div>
+        <div class="price-desc">Aylık</div>
+        <ul class="features-list">
+          <li>Sınırsız Proje</li>
+          <li>100 GB Depolama</li>
+          <li>Öncelikli Destek</li>
+          <li>Özel API Limiti</li>
+        </ul>
+        <button class="cta-button">Yükselt</button>
+      </div>
+      <div class="pricing-card">
+        <h3>Enterprise</h3>
+        <div class="price">$299+</div>
+        <div class="price-desc">Aylık</div>
+        <ul class="features-list">
+          <li>Sınırsız Her Şey</li>
+          <li>Sınırsız Depolama</li>
+          <li>24/7 Destek</li>
+          <li>Özel Hizmetler</li>
+        </ul>
+        <button class="cta-button">Teklif Al</button>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <p>&copy; 2026 Orbit. Strat Code Labs tarafından oluşturuldu. <a href="../index.html#sablonlar" style="color: var(--primary); text-decoration: none;">← Şablonlara Dön</a></p>
+  </footer>
+</body>
+</html>

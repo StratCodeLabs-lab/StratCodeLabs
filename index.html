@@ -419,6 +419,7 @@ nav.main-links a::before{ content:"/"; color:var(--muted-dim); margin-right:6px;
 .proj-tags span{ font-family:var(--f-mono); font-size:10.5px; padding:4px 9px; border:1px solid var(--line-bright); border-radius:20px; color:var(--muted); }
 .proj-link{ font-family:var(--f-mono); font-size:12.5px; color:var(--signal); white-space:nowrap; transition:transform .25s ease; display:inline-block; }
 .proj-link:hover{ transform:translateX(4px); }
+.proj-status{ font-family:var(--f-mono); font-size:12.5px; color:var(--muted); white-space:nowrap; display:inline-block; }
 
 /* ===================== CONTACT / CTA BAND ===================== */
 #iletisim{
@@ -616,6 +617,7 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
 
     <nav class="main-links">
       <a href="#sablonlar">Şablonlar</a>
+      <a href="#tisortler">Tişörtler</a>
       <a href="#makaleler">Makaleler</a>
       <a href="#projeler">Projeler</a>
       <a href="#iletisim">İletişim</a>
@@ -710,7 +712,7 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
     <div class="tpl-grid" id="tplGrid"></div>
   </div>
 </section>
-<section id="shirts" class="section">
+<section id="tisortler" class="section">
   <div class="container">
     <div class="section-head reveal">
       <div class="eyebrow" style="justify-content:center;"><span class="br">{</span> tişörtler <span class="br">}</span></div>
@@ -771,12 +773,11 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
       <div class="eyebrow" style="justify-content:center;"><span class="br">{</span> çalıştığımız kurumlar <span class="br">}</span></div>
       <h2>Güvenilir İş Birlikleri</h2>
     </div>
-    <div style="display:flex; justify-content:center; align-items:center;">
+    <div style="display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap;">
       <div class="about-card reveal" style="text-align:center; padding:24px 40px; border:1px solid var(--line-bright); border-radius:var(--radius); background:var(--panel);">
         <h3 style="font-family:var(--f-mono); letter-spacing:.05em;">YETRAIN'26</h3>
         <img src="yetrain.jpg" width="200" height="200" alt="ye">
       </div>
-    <div style="display:flex; justify-content:center; align-items:center;">
       <div class="about-card reveal" style="text-align:center; padding:24px 40px; border:1px solid var(--line-bright); border-radius:var(--radius); background:var(--panel);">
         <h3 style="font-family:var(--f-mono); letter-spacing:.05em;">LIBRETRAIN'26</h3>
         <img src="libretrain.jpg" width="200" height="200" alt="ye">
@@ -819,10 +820,10 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
       <h4>Bağlantılar</h4>
       <ul>
         <li><a href="#sablonlar">Şablonlar</a></li>
+        <li><a href="#tisortler">Tişörtler</a></li>
         <li><a href="#makaleler">Makaleler</a></li>
         <li><a href="#projeler">Projeler</a></li>
         <li><a href="#iletisim">İletişim</a></li>
-        <li><a href="#shirts">Tişörtler</a></li>
       </ul>
     </div>
     <div>
@@ -974,7 +975,7 @@ const TEMPLATES = [
 ];
 const SHIRTS = [
   {
-    id:'stratcoding', tag:'stratcode', title:'StratCoding Shirt', oldPrice:'₺225', price:'₺120', media:'g1',
+    id:'stratcoding', tag:'stratcode', title:'StratCoding Shirt', oldPrice:'₺750', price:'₺550', media:'g1',
     image:'stratlogotshit.png', color:'Mavi', fit:'Unisex',
     desc:'StratCode Labs logosuyla tasarlanmış, coder ruhunu taşıyan premium tişört. Günlük kullanım ve etkinlikler için ideal.',
     details:[
@@ -985,7 +986,7 @@ const SHIRTS = [
     features:['%100 Pamuk','Unisex kesim','Canlı mavi renk','Tüm bedenler stokta','Ücretsiz kargo']
   },
   {
-    id:'ataturk', tag:'atatürk', title:'Atatürk Shirt', oldPrice:'₺250', price:'₺150', media:'g2',
+    id:'ataturk', tag:'atatürk', title:'Atatürk Shirt', oldPrice:'₺850', price:'₺550', media:'g2',
     image:'atamtshirt.jpeg', color:'Beyaz', fit:'Unisex',
     desc:'Mustafa Kemal Atatürk silueti ve "Milletimizin siyasi ve sosyal hayatında rehberimiz ilim ve fen olacaktır" sözüyle tasarlanmış özel baskılı tişört.',
     details:[
@@ -996,7 +997,7 @@ const SHIRTS = [
     features:['%100 Pamuk','Unisex kesim','Beyaz zemin','Tüm bedenler stokta','Ücretsiz kargo']
   },
   {
-    id:'coding', tag:'coding', title:'Coding Shirt', oldPrice:'₺250', price:'₺120', media:'g3',
+    id:'coding', tag:'coding', title:'Coding Shirt', oldPrice:'₺850', price:'₺550', media:'g3',
     image:'codetshit.jpeg', color:'Beyaz', fit:'Unisex',
     desc:'if (brain!=empty) { KeepCoding(); } else { orderCoffee(); } — geliştiriciler için eğlenceli ve minimal bir kod baskısı.',
     details:[
@@ -1038,8 +1039,8 @@ const ARTICLES = [
 
 const PROJECTS = [
   { title:'AfetRadar — Afet Bilgilendirme Platformu', tags:['Web App','Afet Yönetimi','Açık Kaynak'], desc:'Afet anında güncel bilgiye hızlı erişim sağlamayı hedefleyen, canlı yayında olan bir bilgilendirme platformu.', link:'https://ayankikilinc.github.io/AfetRadar/', live:true },
-  { title:'YETRAIN\'26 - Konferans Websitesi', tags:['Web App','Eğitim','Konferans'], desc:'Going to be Uploaded', link:'', live: false},
-  { title:'LIBRETRAIN\'26 - Konferans Websitesi', tags:['Web App','Eğitim','Konferans'], desc:'Going to be Uploaded', link:'', live: false},
+  { title:'YETRAIN\'26 - Konferans Websitesi', tags:['Web App','Eğitim','Konferans'], desc:'Going to be Uploaded', link:'', live: false, status:'inprogress'},
+    { title:'LIBRETRAIN\'26 - Konferans Websitesi', tags:['Web App','Eğitim','Konferans'], desc:'Going to be Uploaded', link:'', live: false, status:'inprogress'},
 ];
 
 /* =========================================================
@@ -1058,7 +1059,10 @@ TEMPLATES.forEach(function(t){
       '<div class="tpl-tag">'+t.tag+'</div>'+
       '<h3>'+t.title+'</h3>'+
       '<p>'+t.desc+'</p>'+
-      '<span class="tpl-more">Özellikleri Gör →</span>'+
+      '<div style="display:flex; gap:10px; margin-top:12px;">'+
+        '<span class="tpl-more" style="flex:1;">Özellikleri Gör →</span>'+
+        '<a href="template-'+t.id+'.html" class="tpl-more" style="flex:1;" target="_blank">Siteyi Önizle →</a>'+
+      '</div>'+
     '</div>';
   card.addEventListener('click', function(){ openTemplate(t.id); });
   tplGrid.appendChild(card);
@@ -1108,12 +1112,18 @@ PROJECTS.forEach(function(p, i){
   const row = document.createElement('div');
   row.className = 'proj-row reveal';
   const liveBadge = p.live ? '<span class="proj-live"><span class="pulse"></span>Canlı</span>' : '';
-  row.innerHTML =
-    '<div class="proj-idx">{ '+String(i+1).padStart(2,'0')+' }</div>'+
-    '<div class="proj-info"><h3>'+p.title+' '+liveBadge+'</h3><p>'+p.desc+'</p>'+
-      '<div class="proj-tags">'+p.tags.map(function(tg){ return '<span>'+tg+'</span>'; }).join('')+'</div>'+
-    '</div>'+
-    '<a class="proj-link" href="'+p.link+'" target="_blank" rel="noopener">Projeyi Gör →</a>';
+    var projLink = '';
+    if(p.status === 'inprogress') {
+      projLink = '<span class="proj-status">YAPIM AŞAMASINDA</span>';
+    } else {
+      projLink = '<a class="proj-link" href="'+p.link+'" target="_blank" rel="noopener">Projeyi Gör →</a>';
+    }
+    row.innerHTML =
+      '<div class="proj-idx">{ '+String(i+1).padStart(2,'0')+' }</div>'+
+      '<div class="proj-info"><h3>'+p.title+' '+liveBadge+'</h3><p>'+p.desc+'</p>'+
+        '<div class="proj-tags">'+p.tags.map(function(tg){ return '<span>'+tg+'</span>'; }).join('')+'</div>'+
+      '</div>'+
+      projLink;
   projList.appendChild(row);
 });
 

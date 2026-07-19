@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anchor — AJAX Başlangıç Sayfası</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    :root {
+      --primary: #92400E;
+      --secondary: #78350F;
+      --accent: #D97706;
+      --text: #1F2937;
+      --text-light: #6B7280;
+      --bg: #FFFFFF;
+      --bg-alt: #F9FAFB;
+      --border: #E5E7EB;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+    
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 40px;
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      animation: slideDown 0.6s ease-out;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--primary);
+      transition: all 0.3s ease;
+      text-decoration: none;
+    }
+    
+    .logo:hover {
+      transform: scale(1.05);
+      color: var(--secondary);
+    }
+    
+    .logo-icon {
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 14px;
+      font-weight: 600;
+    }
+    
+    nav {
+      display: flex;
+      gap: 30px;
+      align-items: center;
+    }
+    
+    nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.3s ease;
+      font-weight: 500;
+    }
+    
+    nav a:hover {
+      color: var(--primary);
+    }
+    
+    .hero {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out 0.2s both;
+    }
+    
+    .hero h1 {
+      font-size: 56px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .hero p {
+      font-size: 18px;
+      color: var(--text-light);
+      margin-bottom: 40px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    
+    .cta-button {
+      display: inline-block;
+      padding: 14px 32px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(146, 64, 14, 0.3);
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(146, 64, 14, 0.4);
+    }
+    
+    .services-section {
+      max-width: 1200px;
+      margin: 100px auto;
+      padding: 0 40px;
+    }
+    
+    .section-title {
+      font-size: 36px;
+      font-weight: 700;
+      margin-bottom: 50px;
+      text-align: center;
+      color: var(--text);
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    
+    .service-card {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      padding: 40px 30px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid var(--border);
+      animation: fadeIn 0.6s ease-out;
+    }
+    
+    .service-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(146, 64, 14, 0.15);
+    }
+    
+    .service-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+    
+    .service-card h3 {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 15px;
+      font-family: 'Space Grotesk', sans-serif;
+      color: var(--text);
+    }
+    
+    .service-card p {
+      font-size: 14px;
+      color: var(--text-light);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    
+    .learn-more {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+    
+    .learn-more:hover {
+      color: var(--accent);
+    }
+    
+    .showcase-section {
+      max-width: 1200px;
+      margin: 100px auto;
+      padding: 60px 40px;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      border-radius: 16px;
+      color: white;
+      text-align: center;
+      animation: fadeInUp 0.8s ease-out;
+    }
+    
+    .showcase-section h2 {
+      font-size: 40px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    
+    .showcase-section p {
+      font-size: 16px;
+      margin-bottom: 30px;
+      opacity: 0.9;
+    }
+    
+    .features-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+    
+    .feature-item {
+      text-align: left;
+    }
+    
+    .feature-item strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 16px;
+    }
+    
+    .feature-item span {
+      font-size: 13px;
+      opacity: 0.8;
+    }
+    
+    .testimonials-section {
+      max-width: 1200px;
+      margin: 100px auto;
+      padding: 0 40px;
+    }
+    
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+    
+    .testimonial {
+      background: rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 30px;
+      animation: fadeIn 0.6s ease-out;
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 30px rgba(146, 64, 14, 0.15);
+    }
+    
+    .quote-mark {
+      font-size: 28px;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+    
+    .testimonial-text {
+      color: var(--text);
+      font-style: italic;
+      font-size: 14px;
+      line-height: 1.7;
+      margin-bottom: 15px;
+    }
+    
+    .testimonial-author {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 14px;
+    }
+    
+    .author-title {
+      font-size: 12px;
+      color: var(--text-light);
+    }
+    
+    footer {
+      background: var(--bg-alt);
+      padding: 40px;
+      text-align: center;
+      color: var(--text-light);
+      font-size: 14px;
+      border-top: 1px solid var(--border);
+      margin-top: 80px;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="../index.html#sablonlar" class="logo">
+      <div class="logo-icon">SC</div>
+      <span>Anchor</span>
+    </a>
+    <nav>
+      <a href="#services">Hizmetler</a>
+      <a href="#showcase">Neler Yapıyoruz</a>
+      <a href="#testimonials">Müşterilerimiz</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h1>Dijital Çözümlerle İşinizi Büyütün</h1>
+    <p>Anchor, modern ve skalabilir dijital çözümler sunan bir yazılım geliştirme şirketi. İşletmenizin çevrimiçi varlığını güçlendiriyoruz.</p>
+    <button class="cta-button">Başlamaya Hazırız</button>
+  </section>
+
+  <section class="services-section" id="services">
+    <h2 class="section-title">Sunduğumuz Hizmetler</h2>
+    <div class="services-grid">
+      <div class="service-card" style="animation-delay: 0.1s">
+        <div class="service-icon">💻</div>
+        <h3>Web Geliştirme</h3>
+        <p>Responsive ve modern web uygulamaları. React, Vue, Angular ve daha pek çok teknoloji ile çalışırız.</p>
+        <a href="#" class="learn-more">Daha Fazla →</a>
+      </div>
+      <div class="service-card" style="animation-delay: 0.2s">
+        <div class="service-icon">📱</div>
+        <h3>Mobil Uygulamalar</h3>
+        <p>iOS ve Android için native ve cross-platform uygulamalar. Flutter ve React Native uzmanlar.</p>
+        <a href="#" class="learn-more">Daha Fazla →</a>
+      </div>
+      <div class="service-card" style="animation-delay: 0.3s">
+        <div class="service-icon">🎨</div>
+        <h3>UI/UX Tasarım</h3>
+        <p>Kullanıcı deneyimini birinci önceliğe alan tasarım. Figma, Adobe XD ve Sketch ile çalışıyoruz.</p>
+        <a href="#" class="learn-more">Daha Fazla →</a>
+      </div>
+      <div class="service-card" style="animation-delay: 0.4s">
+        <div class="service-icon">☁️</div>
+        <h3>Cloud Çözümleri</h3>
+        <p>AWS, Azure ve Google Cloud ile bulut altyapısı yönetimi. Ölçeklenebilir ve güvenli çözümler.</p>
+        <a href="#" class="learn-more">Daha Fazla →</a>
+      </div>
+      <div class="service-card" style="animation-delay: 0.5s">
+        <div class="service-icon">🔐</div>
+        <h3>Siber Güvenlik</h3>
+        <p>Uygulamalarınızı tehditlere karşı koruyoruz. Penetration testing ve security audit hizmetleri.</p>
+        <a href="#" class="learn-more">Daha Fazla →</a>
+      </div>
+      <div class="service-card" style="animation-delay: 0.6s">
+        <div class="service-icon">📊</div>
+        <h3>Veri Analitikleri</h3>
+        <p>Verilerinizi anlamlandırın ve kararlarınızı verilere dayandırın. BI araçları ve machine learning.</p>
+        <a href="#" class="learn-more">Daha Fazla →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="showcase-section" id="showcase">
+    <h2>Neden Anchor'ı Seçmelisiniz?</h2>
+    <p>Yazılım geliştirmede en iyi uygulamalar ve son teknolojiler kullanarak kalite ve hız sağlarız.</p>
+    <div class="features-list">
+      <div class="feature-item">
+        <strong>⚡ Hızlı Teslimat</strong>
+        <span>Agile metodoloji ile proje teslim ediyoruz</span>
+      </div>
+      <div class="feature-item">
+        <strong>🎯 Odaklanmış Ekip</strong>
+        <span>Uzman ve deneyimli yazılımcılar</span>
+      </div>
+      <div class="feature-item">
+        <strong>📈 Ölçeklenebilir</strong>
+        <span>Büyüyen işletmelere uyum sağlayan çözümler</span>
+      </div>
+      <div class="feature-item">
+        <strong>💰 Ekonomik</strong>
+        <span>Uygun fiyatlarla en iyi kalite</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials-section" id="testimonials">
+    <h2 class="section-title">Müşterilerimiz Ne Diyor?</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial" style="animation-delay: 0.1s">
+        <div class="quote-mark">"</div>
+        <div class="testimonial-text">Anchor ekibi, işletmelerimiz için tam olarak ihtiyaç duyduğumuz çözümü sağladı. Profesyonel ve güvenilir bir takım.</div>
+        <div class="testimonial-author">Ahmet Şahin</div>
+        <div class="author-title">Teknoloji Yönetmeni</div>
+      </div>
+      <div class="testimonial" style="animation-delay: 0.2s">
+        <div class="quote-mark">"</div>
+        <div class="testimonial-text">Proje teslim süresi beklenenden çok daha kısa oldu. Kod kalitesi ve destek hizmetleri muhteşem.</div>
+        <div class="testimonial-author">Fatma Yılmaz</div>
+        <div class="author-title">Proje Müdürü</div>
+      </div>
+      <div class="testimonial" style="animation-delay: 0.3s">
+        <div class="quote-mark">"</div>
+        <div class="testimonial-text">Anchor ile çalışmak, risk almamak demek. Her adımda danışmanlık aldık ve memnun kaldık.</div>
+        <div class="testimonial-author">Emre Koçak</div>
+        <div class="author-title">Başkan / CEO</div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Anchor Digital Solutions. Strat Code Labs tarafından oluşturuldu. <a href="../index.html#sablonlar" style="color: var(--primary); text-decoration: none;">← Şablonlara Dön</a></p>
+  </footer>
+</body>
+</html>
