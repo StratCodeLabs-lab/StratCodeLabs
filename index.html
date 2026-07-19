@@ -1038,44 +1038,70 @@ function openTemplate(id){
 }
 
 
-function openShirt(id){
-  const t = SHIRTS.find(function(x){ return x.id === id; });
-  if(!t) return;
+function openShirt(id) {
+    const t = SHIRTS.find(x => x.id === id);
+    if (!t) {
+        console.log("Ürün bulunamadı:", id);
+        return;
+    }
 
-  document.getElementById('tplModalTag1').textContent = t.tag;
-  document.getElementById('tplModalTitle1').textContent = t.title;
-  document.getElementById('tplModalPrice1').innerHTML =
-    '<span class="old">'+t.oldPrice+'</span><span>'+t.price+'</span>';
-  document.getElementById('tplModalDesc1').textContent = t.desc;
+    const ids = [
+        "tplModalTag1",
+        "tplModalTitle1",
+        "tplModalPrice1",
+        "tplModalDesc1",
+        "tplModalFeatures1",
+        "tplBuyBtn1",
+        "tplCopyBtn1",
+        "tplOverlay1"
+    ];
 
-  const list = document.getElementById('tplModalFeatures1');
-  list.innerHTML = '';
+    ids.forEach(id => {
+        if (!document.getElementById(id)) {
+            console.error("Bulunamadı:", id);
+        }
+    });
 
-  t.features.forEach(function(f){
-    const li = document.createElement('li');
-    li.innerHTML = '<span class="chk">✓</span><span>'+f+'</span>';
-    list.appendChild(li);
-  });
+    document.getElementById("tplModalTag1").textContent = t.tag;
+    document.getElementById("tplModalTitle1").textContent = t.title;
+    document.getElementById("tplModalPrice1").innerHTML =
+        `<span class="old">${t.oldPrice}</span><span>${t.price}</span>`;
+    document.getElementById("tplModalDesc1").textContent = t.desc;
 
-  const rawBody =
-    'Merhaba,\n\n"'+t.title+'" ürününü ('+t.price+', indirimli fiyat) satın almak istiyorum.\n\nAdım Soyadım:\nE-posta:\nEklemek istediğim not:\n';
+    const list = document.getElementById("tplModalFeatures1");
+    list.innerHTML = "";
 
-  const subject = encodeURIComponent('Ürün Satın Alma - ' + t.title);
-  const body = encodeURIComponent(rawBody);
+    t.features.forEach(f => {
+        const li = document.createElement("li");
+        li.innerHTML = `<span class="chk">✓</span><span>${f}</span>`;
+        list.appendChild(li);
+    });
 
-  document.getElementById('tplBuyBtn1').href =
-    'https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su='+subject+'&body='+body;
+    const rawBody =
+`Merhaba,
 
-  document.getElementById('tplCopyBtn1').onclick = function(){
-    copyToClipboard(
-      'Kime: kilincatayanki@gmail.com\nKonu: Ürün Satın Alma - '+t.title+'\n\n'+rawBody,
-      'kilincatayanki@gmail.com adresine gönderilecek mesaj panoya kopyalandı.'
-    );
-  };
+"${t.title}" ürününü (${t.price}, indirimli fiyat) satın almak istiyorum.
 
-  const tplOverlay1 = document.getElementById("tplOverlay1");
-  tplOverlay1.classList.add("open");
-  document.body.classList.add("lock");
+Adım Soyadım:
+E-posta:
+Eklemek istediğim not:
+`;
+
+    const subject = encodeURIComponent("Ürün Satın Alma - " + t.title);
+    const body = encodeURIComponent(rawBody);
+
+    document.getElementById("tplBuyBtn1").href =
+        `https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su=${subject}&body=${body}`;
+
+    document.getElementById("tplCopyBtn1").onclick = function () {
+        copyToClipboard(
+            `Kime: kilincatayanki@gmail.com\nKonu: Ürün Satın Alma - ${t.title}\n\n${rawBody}`,
+            "Panoya kopyalandı."
+        );
+    };
+
+    document.getElementById("tplOverlay1").classList.add("open");
+    document.body.classList.add("lock");
 }
 /* =========================================================
    CLIPBOARD FALLBACK + TOAST
