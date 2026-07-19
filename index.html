@@ -619,6 +619,17 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
     <div class="tpl-grid" id="tplGrid"></div>
   </div>
 </section>
+<section id="sablonlar" class="section">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow" style="justify-content:center;"><span class="br">{</span> tişörtler <span class="br">}</span></div>
+      <h2>Kod Yazmadan Önce Bir Coder Gibi Giyinin</h2>
+      <p class="lead">Bir tişörtü beğendiğinizde stratcodelabs@gmail.com mailine link atarak tarzınızı geliştirin.</p>
+    </div>
+
+    <div class="tpl-grid" id="tplGrid1"></div>
+  </div>
+</section>
 <!-- ============ MAKALELER ============ -->
 <section id="makaleler" class="section" style="background:var(--panel); border-top:1px solid var(--line); border-bottom:1px solid var(--line);">
   <div class="container">
@@ -1024,73 +1035,6 @@ function openTemplate(id){
 
   tplOverlay.classList.add('open');
   document.body.classList.add('lock');
-}
-
-
-function openShirt(id) {
-    const t = SHIRTS.find(x => x.id === id);
-    if (!t) {
-        console.log("Ürün bulunamadı:", id);
-        return;
-    }
-
-    const ids = [
-        "tplModalTag1",
-        "tplModalTitle1",
-        "tplModalPrice1",
-        "tplModalDesc1",
-        "tplModalFeatures1",
-        "tplBuyBtn1",
-        "tplCopyBtn1",
-        "tplOverlay1"
-    ];
-
-    ids.forEach(id => {
-        if (!document.getElementById(id)) {
-            console.error("Bulunamadı:", id);
-        }
-    });
-
-    document.getElementById("tplModalTag1").textContent = t.tag;
-    document.getElementById("tplModalTitle1").textContent = t.title;
-    document.getElementById("tplModalPrice1").innerHTML =
-        `<span class="old">${t.oldPrice}</span><span>${t.price}</span>`;
-    document.getElementById("tplModalDesc1").textContent = t.desc;
-
-    const list = document.getElementById("tplModalFeatures1");
-    list.innerHTML = "";
-
-    t.features.forEach(f => {
-        const li = document.createElement("li");
-        li.innerHTML = `<span class="chk">✓</span><span>${f}</span>`;
-        list.appendChild(li);
-    });
-
-    const rawBody =
-`Merhaba,
-
-"${t.title}" ürününü (${t.price}, indirimli fiyat) satın almak istiyorum.
-
-Adım Soyadım:
-E-posta:
-Eklemek istediğim not:
-`;
-
-    const subject = encodeURIComponent("Ürün Satın Alma - " + t.title);
-    const body = encodeURIComponent(rawBody);
-
-    document.getElementById("tplBuyBtn1").href =
-        `https://mail.google.com/mail/?view=cm&fs=1&to=kilincatayanki@gmail.com&su=${subject}&body=${body}`;
-
-    document.getElementById("tplCopyBtn1").onclick = function () {
-        copyToClipboard(
-            `Kime: kilincatayanki@gmail.com\nKonu: Ürün Satın Alma - ${t.title}\n\n${rawBody}`,
-            "Panoya kopyalandı."
-        );
-    };
-
-    document.getElementById("tplOverlay1").classList.add("open");
-    document.body.classList.add("lock");
 }
 /* =========================================================
    CLIPBOARD FALLBACK + TOAST
