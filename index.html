@@ -800,7 +800,40 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
     </div>
   </div>
 </div>
+<div class="overlay" id="tplOverlay">
+  <div class="modal-panel">
+    <button class="close-x js-close" aria-label="Kapat">✕</button>
+    <div class="modal-tag" id="tplModalTag1"></div>
+    <h3 id="tplModalTitle1"></h3>
+    <div class="modal-price" id="tplModalPrice1"></div>
+    <p class="modal-desc" id="tplModalDesc1"></p>
+    <ul class="feature-list" id="tplModalFeatures"></ul>
+    <div class="modal-actions">
+      <a class="btn btn-solid" id="tplBuyBtn" href="#" target="_blank" rel="noopener">Satın Al</a>
+      <button class="btn btn-ghost js-close">Kapat</button>
+    </div>
+    <div class="copy-fallback">
+      <span>Mail istemciniz açılmadıysa:</span>
+      <button type="button" id="tplCopyBtn">
+        <svg viewBox="0 0 24 24" fill="none"><rect x="9" y="9" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.6"/><path d="M5 15V5a2 2 0 0 1 2-2h10" stroke="currentColor" stroke-width="1.6"/></svg>
+        E-postayı Kopyala
+      </button>
+    </div>
+  </div>
+</div>
 
+<!-- ============ ARTICLE MODAL ============ -->
+<div class="overlay" id="artOverlay">
+  <div class="modal-panel">
+    <button class="close-x js-close" aria-label="Kapat">✕</button>
+    <div class="modal-meta" id="artModalMeta1"></div>
+    <h3 id="artModalTitle1" style="margin-top:14px;"></h3>
+    <div class="modal-body-text" id="artModalBody1"></div>
+    <div class="modal-actions">
+      <button class="btn btn-ghost js-close">Kapat</button>
+    </div>
+  </div>
+</div>
 <script>
 /* =========================================================
    DATA — şablon, makale ve proje bilgileri buradan yönetilir.
@@ -922,7 +955,7 @@ SHIRTS.forEach(function(t){
       '<p>'+t.desc+'</p>'+
       '<span class="tpl-more">Özellikleri Gör →</span>'+
     '</div>';
-  card.addEventListener('click', function(){ openTemplate(t.id); });
+  card.addEventListener('click', function(){ openShirt(t.id); });
   tplGrid1.appendChild(card);
 });
 
@@ -1040,8 +1073,9 @@ function openShirt(id){
     );
   };
 
-  tplOverlay.classList.add('open');
-  document.body.classList.add('lock');
+  const tplOverlay1 = document.getElementById("tplOverlay1");
+  tplOverlay1.classList.add("open");
+  document.body.classList.add("lock");
 }
 /* =========================================================
    CLIPBOARD FALLBACK + TOAST
