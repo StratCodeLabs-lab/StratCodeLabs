@@ -279,6 +279,21 @@ nav.main-links a::before{ content:"/"; color:var(--muted-dim); margin-right:6px;
 .about-card h3{ font-size:21px; margin-top:12px; }
 .about-card p{ margin-top:10px; color:var(--muted); font-size:15.5px; }
 
+/* ===================== PARTNERSHIP CARDS ===================== */
+.partner-card {
+  text-align: center;
+  padding: 24px 40px;
+  border: 1px solid var(--line-bright);
+  border-radius: var(--radius);
+  background: var(--panel);
+  transition: transform 0.4s cubic-bezier(.16, 1, .3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.partner-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  border-color: var(--blue-bright);
+  box-shadow: 0 0 25px var(--blue-glow), 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
 /* ===================== TEMPLATE CARDS ===================== */
 .tpl-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:26px; }
 @media (max-width:960px){ .tpl-grid{ grid-template-columns:repeat(2,1fr); } }
@@ -306,6 +321,7 @@ nav.main-links a::before{ content:"/"; color:var(--muted-dim); margin-right:6px;
 .tpl-media.g4{ background:linear-gradient(135deg, #331a1a, #cf4d3b); }
 .tpl-media.g5{ background:linear-gradient(135deg, #1a2530, #2e4a5c); }
 .tpl-media.g6{ background:linear-gradient(135deg, #2a2408, #8a7a1a); }
+.tpl-media.g7{ background:linear-gradient(135deg, #0f1638, #5c78ff); }
 .tpl-media.has-img{ background:linear-gradient(180deg, var(--panel-3), var(--panel)); }
 .tpl-media.has-img .brace{ display:none; }
 .tpl-media.has-img .shirt-thumb{
@@ -774,11 +790,11 @@ footer{ background:var(--void); border-top:1px solid var(--line); padding:60px 0
       <h2>Güvenilir İş Birlikleri</h2>
     </div>
     <div style="display:flex; justify-content:center; align-items:center; gap:40px; flex-wrap:wrap;">
-      <div class="about-card reveal" style="text-align:center; padding:24px 40px; border:1px solid var(--line-bright); border-radius:var(--radius); background:var(--panel);">
+      <div class="about-card partner-card reveal">
         <h3 style="font-family:var(--f-mono); letter-spacing:.05em;">YETRAIN'26</h3>
         <img src="yetrain.jpg" width="200" height="200" alt="ye">
       </div>
-      <div class="about-card reveal" style="text-align:center; padding:24px 40px; border:1px solid var(--line-bright); border-radius:var(--radius); background:var(--panel);">
+      <div class="about-card partner-card reveal">
         <h3 style="font-family:var(--f-mono); letter-spacing:.05em;">LIBRETRAIN'26</h3>
         <img src="libretrain.jpg" width="200" height="200" alt="ye">
       </div>
@@ -971,6 +987,11 @@ const TEMPLATES = [
     id:'anchor', tag:'Ajans Sayfası', title:'Anchor — Ajans Açılış Sayfası', oldPrice:'$28', price:'$25', media:'g6',
     desc:'Dijital ajanslar ve stüdyolar için referans, hizmet ve iletişim bölümleri içeren şablon.',
     features:['Hizmetler ve referans bölümleri','Ekip ve süreç sayfası şablonları','İletişim formu arayüzü (mailto uyumlu)','SEO ve performans optimizasyonlu','Figma tasarım dosyası dahil','6 ay ücretsiz güncelleme']
+  },
+  {
+    id:'mun', tag:'MUN Konferansı', title:'Aegis — MUN Konferans Sayfası', oldPrice:'$35', price:'$25', media:'g7',
+    desc:'Model United Nations (MUN) konferansları için tasarlanmış, dinamik komite filtreleme ve modern başvuru arayüzü sunan şablon.',
+    features:['Tam duyarlı (mobil/tablet/masaüstü)','Canlı komite detay modalı','Gelişmiş başvuru form entegrasyonu','Karanlık ve aydınlık temalara uygun','Müzik çalar ve yukarı çık butonları','Figma tasarım dosyası dahil','6 ay ücretsiz güncelleme']
   }
 ];
 const SHIRTS = [
